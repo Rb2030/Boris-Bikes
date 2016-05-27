@@ -3,17 +3,17 @@ require 'docking_station'
 
 describe DockingStation do
   it { is_expected.to respond_to :release_bike }
-  
+
   describe '#release_bike' do
-    
+    let(:bike) { double :bike }
+    let (:bike2) { double :bike2}
     it 'releases a bike' do
-      
-      bike = Bike.new
+      allow(bike).to receive(:is_working).and_return(true)
       subject.dock(bike)
       # we want to release the bike we docked
       expect(subject.release_bike).to eq bike
     end
-    
+
 
     it 'raises an error when there are no bikes available' do
       # Let's not dock a bike first:
@@ -23,14 +23,16 @@ describe DockingStation do
 
 
     it 'doesn\'t release a broken bike' do
-      bike1 = Bike.new
-      bike1.report_broken
-      subject.dock(bike1)
+      #bike1 = Bike.new
+      allow(bike).to receive(:is_working).and_return(false)
+      #bike.report_broken
+      subject.dock(bike)
       expect{subject.release_bike}.to raise_error 'No working bikes available'
-      bike2 = Bike.new
-      subject.dock(bike2)
+      #bike2 = Bike.new
+      subject.dock bike2
+      allow(bike2).to receive(:is_working).and_return(true)
       expect(subject.release_bike).to eq bike2
-    end
+        end
 
 
   end
