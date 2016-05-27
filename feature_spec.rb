@@ -1,11 +1,16 @@
-require '~/boris-bikes/lib/docking_station.rb'  # ~> LoadError: cannot load such file -- ~/Users/Ross/boris-bikes/lib/docking_station.rb
-require '~/boris-bikes/lib/bike.rb'
+require '/Users/paulkenrick/projects/makersacademy/boris-bikes/lib/docking_station'  # ~> LoadError: cannot load such file -- ~/Users/Ross/boris-bikes/lib/docking_station.rb
+require '/Users/paulkenrick/projects/makersacademy/boris-bikes/lib/bike'
 
 station = DockingStation.new
 bike = Bike.new
+# bike2 = Bike.new
 bike.report_broken
 bike.broken?
 station.dock(bike)
+# station.dock(bike2)
+station.release_bike
+
+
 
 # ~> LoadError
 # ~> cannot load such file -- ~/Users/Ross/boris-bikes/lib/docking_station.rb

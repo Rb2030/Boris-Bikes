@@ -15,7 +15,10 @@ class DockingStation
 
   def release_bike
     fail 'No bikes available' if empty?
-    @bikes.pop
+    fail 'No working bikes available' if @bikes.all?{|bike| bike.is_working == false}    
+    new_bike = @bikes.find {|bike| bike.is_working}
+    @bikes.delete(new_bike)
+    return new_bike 
   end
 
   def dock(bike)
